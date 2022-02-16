@@ -6,21 +6,10 @@ using DiskCardGame;
 
 namespace NodeAPI
 {
-    public class CustomSpecialNodeSequencer : ManagedBehaviour
+    public abstract class CustomSpecialNodeSequencer : ManagedBehaviour, INodeSequencer
     {
-        public IEnumerator Sequence()
-        {
-            yield return DoCustomSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.MapDefault, false, false);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            Singleton<GameFlowManager>.Instance.TransitionToGameState(GameState.Map, null);
-            Destroy(gameObject);
-            yield break;
-        }
+        public virtual void Inherit() { }
 
-        public virtual IEnumerator DoCustomSequence()
-        {
-            yield break;
-        }
+        public abstract IEnumerator DoCustomSequence();
     }
 }
